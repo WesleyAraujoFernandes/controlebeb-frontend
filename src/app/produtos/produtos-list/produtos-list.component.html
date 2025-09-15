@@ -15,9 +15,9 @@
   <tbody>
     <tr *ngFor="let p of produtos">
       <td class="text-center">{{ p.id }}</td>
-      <td>{{ p.nome }}</td>
-      <td>R$ {{ p.preco | number:'1.2-2' }}</td>
-      <td>{{ p.estoque }}</td>
+      <td>{{ p.name }}</td>
+      <td>R$ {{ p.price | number:'1.2-2' }}</td>
+      <td>{{ p.quantity }}</td>
       <td class="text-center">
         <a [routerLink]="['/produtos/editar', p.id]" class="btn btn-sm btn-primary me-2">Editar</a>
         <button class="btn btn-sm btn-danger">Excluir</button>

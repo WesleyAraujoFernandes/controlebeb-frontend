@@ -1,1 +1,124 @@
-<p>produtos-form works!</p>
+<div class="container mt-4">
+  <h2>Cadastrar Produto</h2>
+
+  <form [formGroup]="form" (ngSubmit)="salvar()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Nome</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': form.get('name')?.invalid && form.get('name')?.touched
+        }"
+      />
+      <div class="invalid-feedback">Nome é obrigatório</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Descrição</label>
+      <input
+        id="description"
+        type="text"
+        formControlName="description"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid':
+            form.get('description')?.invalid && form.get('description')?.touched
+        }"
+      />
+      <div class="invalid-feedback">Descrição é obrigatória</div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label for="price" class="form-label">Preço</label>
+        <input
+          id="price"
+          type="number"
+          step="0.01"
+          formControlName="price"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              form.get('price')?.invalid && form.get('price')?.touched
+          }"
+        />
+        <div class="invalid-feedback">Informe um preço válido</div>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="quantity" class="form-label">Quantidade</label>
+        <input
+          id="quantity"
+          type="number"
+          formControlName="quantity"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              form.get('quantity')?.invalid && form.get('quantity')?.touched
+          }"
+        />
+        <div class="invalid-feedback">Informe uma quantidade maior que 0</div>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="minimumStock" class="form-label">Estoque mínimo</label>
+        <input
+          id="minimumStock"
+          type="number"
+          formControlName="minimumStock"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              form.get('minimumStock')?.invalid &&
+              form.get('minimumStock')?.touched
+          }"
+        />
+        <div class="invalid-feedback">Informe um estoque mínimo válido</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="categoryId" class="form-label">Categoria</label>
+      <select
+        id="categoryId"
+        formControlName="categoryId"
+        class="form-select"
+        [ngClass]="{
+          'is-invalid':
+            form.get('categoryId')?.invalid && form.get('categoryId')?.touched
+        }"
+      >
+        <option value="">Selecione uma categoria</option>
+        <option *ngFor="let cat of categorias" [value]="cat.id">
+          {{ cat.description }}
+        </option>
+      </select>
+      <div class="invalid-feedback">Selecione uma categoria</div>
+    </div>
+
+    <!-- Botões -->
+    <div class="d-flex justify-content-end">
+      <button
+        type="reset"
+        class="btn btn-outline-secondary me-2"
+        [disabled]="loading"
+      >
+        Limpar
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="form.invalid || loading"
+      >
+        <span
+          *ngIf="loading"
+          class="spinner-border spinner-border-sm me-1"
+        ></span>
+        {{ produtoId ? "Atualizar" : "Salvar" }}
+      </button>
+    </div>
+  </form>
+</div>

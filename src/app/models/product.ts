@@ -4,6 +4,9 @@ export interface Product {
   description: string;
   price: number;
   quantity: number;
-  minumumStock: number;
-  categoryId: number; // FK da categoria
+  minimumStock: number;
+  category: {
+    id: number;
+    description?: string; // opcional, só vem do backend
+  };
 }
