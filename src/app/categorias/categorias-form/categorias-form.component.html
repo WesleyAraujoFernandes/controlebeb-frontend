@@ -1,0 +1,40 @@
+<div class="card shadow-sm">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">
+      {{ categoriaId ? 'Editar Categoria' : 'Cadastrar Categoria' }}
+    </h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="categoriaForm" (ngSubmit)="onSubmit()">
+      <!-- Descrição -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Descrição</label>
+        <textarea
+          id="description"
+          class="form-control"
+          rows="3"
+          formControlName="description"
+          placeholder="Digite a descrição"
+          [ngClass]="{'is-invalid': f['description'].touched && f['description'].invalid}"
+        ></textarea>
+        <div *ngIf="f['description'].touched && f['description'].invalid" class="invalid-feedback">
+          <span *ngIf="f['description'].errors?.['required']">A descrição é obrigatória.</span>
+          <span *ngIf="f['description'].errors?.['minlength']">A descrição deve ter pelo menos 3 caracteres.</span>
+        </div>
+      </div>
+
+      <!-- Mensagens -->
+      <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
+      <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+
+      <!-- Botões -->
+      <div class="d-flex justify-content-end">
+        <button type="reset" class="btn btn-outline-secondary me-2" [disabled]="loading">Limpar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="categoriaForm.invalid || loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+          {{ categoriaId ? 'Atualizar' : 'Salvar' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
