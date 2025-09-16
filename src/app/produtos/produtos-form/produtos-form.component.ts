@@ -120,35 +120,4 @@ export class ProdutosFormComponent implements OnInit {
     });
   }
 
-  /*
-  salvar(): void {
-    if (this.produtoForm.invalid) {
-      this.produtoForm.markAllAsTouched();
-      return;
-    }
-
-    const formValue = this.produtoForm.value;
-
-    const product: Product = {
-      id: this.produtoId, // se existir, vai atualizar
-      name: formValue.name,
-      description: formValue.description,
-      price: formValue.price,
-      quantity: formValue.quantity,
-      minimumStock: formValue.minimumStock,
-      category: { id: formValue.categoryId }, // 👈 agora está certinho
-    };
-
-    this.loading = true;
-    this.productsService.salvar(product).subscribe({
-      next: () => {
-        this.loading = false;
-        this.router.navigate(['/produtos']);
-      },
-      error: (err) => {
-        console.error('Erro ao salvar o produto:', err);
-        this.loading = false;
-      },
-    });
-  } */
 }
