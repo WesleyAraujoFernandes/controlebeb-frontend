@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Category, CategoriasService } from '../../services/categorias.service';
+import { ConfirmDialogComponent } from '../../utils/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-categorias-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ConfirmDialogComponent],
   templateUrl: './categorias-list.component.html',
 })
 export class CategoriasListComponent implements OnInit {
@@ -20,6 +21,10 @@ export class CategoriasListComponent implements OnInit {
   showErrorToast = false;
   successMessage = '';
   errorMessage = '';
+
+  /* Controle do modal */
+  categoriaSelecionadaId: number | null = null;
+  mostrarConfirmacao = false;
 
   constructor(private categoriasService: CategoriasService) {}
 
@@ -44,31 +49,37 @@ export class CategoriasListComponent implements OnInit {
     });
   }
 
-  excluir(categoria: Category) {
-    if (!categoria.id) return;
-    if (
-      !confirm(
-        `Tem certeza que deseja excluir a categoria "${categoria.description}"?`
-      )
-    )
-      return;
+  abrirConfirmacao(id: number): void {
+    this.categoriaSelecionadaId = id;
+    this.mostrarConfirmacao = true;
+  }
 
-    this.categoriasService.excluir(categoria.id).subscribe({
+  excluirConfirmado() {
+    if (!this.categoriaSelecionadaId) return;
+    this.categoriasService.excluir(this.categoriaSelecionadaId).subscribe({
       next: () => {
-        // Remove da lista local
-        this.categorias = this.categorias.filter((c) => c.id !== categoria.id);
-
-        // Exibe toast de sucesso
-        this.successMessage = `Categoria "${categoria.description}" excluída com sucesso!`;
-        this.showSuccessToast = true;
-        setTimeout(() => (this.showSuccessToast = false), 5000); // auto-hide
+        this.successMsg = 'Categoria excluída com sucesso!';
+        this.carregarCategorias(), this.limparMensagens();
+        this.fecharModal();
       },
       error: (err) => {
-        const backendMsg = err.error || 'Erro ao excluir a categoria.';
-        this.errorMessage = `Não foi possível excluir a categoria "${categoria.description}"`;
+        this.errorMessage = 'Não foi possível excluir a categoria. ', err;
+        //this.errorMsg = 'Erro ao excluir a categoria';
+        this.limparMensagens();
+        this.fecharModal();
         this.showErrorToast = true;
         setTimeout(() => (this.showErrorToast = false), 5000); // auto-hide
       },
     });
+  }
+  fecharModal(): void {
+    this.mostrarConfirmacao = false;
+    this.categoriaSelecionadaId = null;
+  }
+  private limparMensagens(): void {
+    setTimeout(() => {
+      this.successMsg = '';
+      this.errorMsg = '';
+    }, 3000);
   }
 }

@@ -1,29 +1,65 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
   <h2>Produtos</h2>
-  <a routerLink="/produtos/cadastrar" class="btn btn-success">+ Cadastrar novo produto</a>
+  <a routerLink="/produtos/cadastrar" class="btn btn-success"
+    >+ Cadastrar novo produto</a
+  >
+</div>
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1100">
+  <div
+    *ngIf="successMsg"
+    class="toast align-items-center text-bg-success border-0 show"
+    role="alert"
+  >
+    <div class="d-flex">
+      <div class="toast-body">{{ successMsg }}</div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="errorMsg"
+    class="toast align-items-center text-bg-danger border-0 show"
+    role="alert"
+  >
+    <div class="d-flex">
+      <div class="toast-body">{{ errorMsg }}</div>
+    </div>
+  </div>
 </div>
 <table class="table table-striped table-bordered">
   <thead class="table-dark">
     <tr>
-      <th class="text-center" style="width: 60px; display: none;">ID</th>
+      <th class="text-center" style="width: 60px; display: none">ID</th>
       <th>Nome</th>
-      <th style="width: 130px;">Preço</th>
-      <th style="width: 60px;">Estoque</th>
-      <th style="width: 130px;">Estoque min.</th>
-      <th class="text-center" style="width: 160px;">Ações</th>
+      <th style="width: 130px">Preço</th>
+      <th style="width: 60px">Estoque</th>
+      <th style="width: 130px">Estoque min.</th>
+      <th class="text-center" style="width: 160px">Ações</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let p of produtos">
-      <td class="text-center" style="display: none;">{{ p.id }}</td>
+      <td class="text-center" style="display: none">{{ p.id }}</td>
       <td>{{ p.name }}</td>
-      <td>R$ {{ p.price | number:'1.2-2' }}</td>
+      <td>R$ {{ p.price | number : "1.2-2" }}</td>
       <td>{{ p.quantity }}</td>
       <td>{{ p.minimumStock }}</td>
       <td class="text-center">
-        <a [routerLink]="['/produtos/editar', p.id]" class="btn btn-sm btn-primary me-2">Editar</a>
-        <button class="btn btn-sm btn-danger">Excluir</button>
+        <a
+          [routerLink]="['/produtos/editar', p.id]"
+          class="btn btn-sm btn-primary me-2"
+          >Editar</a
+        >
+        <button class="btn btn-sm btn-danger" (click)="abrirConfirmacao(p.id!)">
+          Excluir
+        </button>
       </td>
     </tr>
   </tbody>
 </table>
+<app-confirm-dialog
+  *ngIf="mostrarConfirmacao"
+  title="Excluir Produto"
+  message="Tem certeza que deseja excluir este produto?"
+  (onConfirm)="excluirConfirmado()"
+  (onCancel)="fecharModal()">
+</app-confirm-dialog>

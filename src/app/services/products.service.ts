@@ -21,10 +21,15 @@ export class ProductsService {
   atualizar(id: number, product: Product): Observable<Product> {
     return this.http.put<Product>(`${this.apiUrl}/${id}`, product);
   }
-
-  excluir(id: number): Observable<void> {
+  /*
+  deletar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+  */
+  deletar(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
   buscarPorId(id: number): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }

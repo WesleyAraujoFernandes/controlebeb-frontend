@@ -35,7 +35,7 @@
         <a [routerLink]="['/categorias/editar', c.id]" class="btn btn-sm btn-primary me-2">
           Editar
         </a>
-        <button class="btn btn-sm btn-danger" (click)="excluir(c)">
+        <button class="btn btn-sm btn-danger" (click)="abrirConfirmacao(c.id!)">
           Excluir
         </button>
       </td>
@@ -51,8 +51,8 @@
 <!-- Toasts -->
 <div class="position-fixed top-0 end-0 p-3" style="z-index: 1055">
   <!-- Toast de sucesso -->
-  <div 
-    class="toast align-items-center text-bg-success border-0 show custom-toast" 
+  <div
+    class="toast align-items-center text-bg-success border-0 show custom-toast"
     role="alert"
     *ngIf="showSuccessToast"
   >
@@ -65,8 +65,8 @@
   </div>
 
   <!-- Toast de erro -->
-  <div 
-    class="toast align-items-center text-bg-danger border-0 show custom-toast" 
+  <div
+    class="toast align-items-center text-bg-danger border-0 show custom-toast"
     role="alert"
     *ngIf="showErrorToast"
   >
@@ -78,3 +78,11 @@
     </div>
   </div>
 </div>
+<!-- Modal de confirmação -->
+<app-confirm-dialog
+  *ngIf="mostrarConfirmacao"
+  title="Excluir Categoria"
+  message="Tem certeza que deseja excluir esta categoria?"
+  (onConfirm)="excluirConfirmado()"
+  (onCancel)="fecharModal()"
+></app-confirm-dialog>

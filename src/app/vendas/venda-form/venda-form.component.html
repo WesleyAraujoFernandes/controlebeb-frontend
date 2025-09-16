@@ -1,0 +1,97 @@
+<h2>Nova Venda</h2>
+
+<div class="mb-3">
+  <label class="form-label">Cliente:</label>
+  <select [(ngModel)]="selectedCustomerId" class="form-select">
+    <option value="">Selecione um cliente</option>
+    <option *ngFor="let c of customers" [value]="c.id">
+      {{ c.name }} ({{ c.email }})
+    </option>
+  </select>
+</div>
+
+<!-- Seleção do produto -->
+<div class="row mb-3">
+  <div class="col-md-6">
+    <label class="form-label">Produto:</label>
+    <select [(ngModel)]="selectedProductId" class="form-select">
+      <option value="">Selecione um produto</option>
+      <option *ngFor="let p of products" [value]="p.id">
+        {{ p.name }} - R$ {{ p.price | number : "1.2-2" }} (Estoque:
+        {{ p.quantity }})
+      </option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <label class="form-label">Quantidade:</label>
+    <input type="number" [(ngModel)]="quantity" min="1" class="form-control" />
+  </div>
+  <div class="col-md-3 d-flex align-items-end">
+    <button class="btn btn-primary w-100" (click)="adicionarItem()">
+      Adicionar
+    </button>
+  </div>
+</div>
+
+<!-- Itens da venda -->
+<h3>Itens da Venda</h3>
+<table class="table table-bordered mt-2" *ngIf="saleItems.length > 0">
+  <thead class="table-dark">
+    <tr>
+      <th>Produto</th>
+      <th class="text-end">Preço</th>
+      <th class="text-end">Qtd</th>
+      <th class="text-end">Subtotal</th>
+      <th>Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of saleItems">
+      <td>
+        {{ getProductName(item.productId) }}
+      </td>
+      <td class="text-end">R$ {{ item.price | number : "1.2-2" }}</td>
+      <td class="text-end">{{ item.quantity }}</td>
+      <td class="text-end">R$ {{ item.subtotal | number : "1.2-2" }}</td>
+      <td>
+        <button
+          class="btn btn-sm btn-danger"
+          (click)="removerItem(item.productId)"
+        >
+          Remover
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Totais -->
+<div class="mt-3">
+  <div class="mb-2">
+    <label>Desconto:</label>
+    <input
+      type="number"
+      [(ngModel)]="desconto"
+      (input)="atualizarTotais()"
+      class="form-control"
+    />
+  </div>
+  <p><strong>Total Bruto:</strong> R$ {{ totalBruto | number : "1.2-2" }}</p>
+  <p>
+    <strong>Total Líquido:</strong> R$
+    {{ totalLiquido | number : "1.2-2" }}
+  </p>
+</div>
+<button class="btn btn-primary me-2" (click)="adicionarItem()">
+  Adicionar item
+</button>
+<button class="btn btn-success" (click)="finalizarVenda()">
+  Finalizar Venda
+</button>
+
+<h3>Itens da venda</h3>
+<ul class="list-group mt-2">
+  <li class="list-group-item" *ngFor="let item of saleItems">
+    Produto: {{ item.productId }} - Qtde: {{ item.quantity }}
+  </li>
+</ul>

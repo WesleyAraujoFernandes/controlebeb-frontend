@@ -1,0 +1,26 @@
+<div class="container mt-4">
+  <h2>Clientes</h2>
+  <button class="btn btn-primary mb-3" [routerLink]="['/clientes/cadastrar']">Novo Cliente</button>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of customers">
+        <td>{{ c.name }}</td>
+        <td>{{ c.email }}</td>
+        <td>{{ c.phone }}</td>
+        <td>
+          <button class="btn btn-sm btn-warning me-2" [routerLink]="['/clientes/editar', c.id]">Editar</button>
+          <button class="btn btn-sm btn-danger" (click)="excluir(c.id!)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

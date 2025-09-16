@@ -1,0 +1,7 @@
+<app-confirm-dialog
+  *ngIf="mostrarConfirmacao"
+  title="Excluir Produto"
+  message="Tem certeza que deseja excluir este produto?"
+  (onConfirm)="excluirConfirmado()"
+  (onCancel)="fecharModal()">
+</app-confirm-dialog>
