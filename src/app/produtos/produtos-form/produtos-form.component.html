@@ -91,12 +91,12 @@
             form.get('categoryId')?.invalid && form.get('categoryId')?.touched
         }"
       >
-        <option value="">Selecione uma categoria</option>
+        <option value="">Escolha uma categoria</option>
         <option *ngFor="let cat of categorias" [value]="cat.id">
           {{ cat.description }}
         </option>
       </select>
-      <div class="invalid-feedback">Selecione uma categoria</div>
+      <div class="invalid-feedback">Escolha uma categoria</div>
     </div>
 
     <!-- Botões -->
