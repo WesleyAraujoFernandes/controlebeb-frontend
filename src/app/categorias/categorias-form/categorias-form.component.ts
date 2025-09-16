@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { CategoriasService, Category } from '../../core/categorias.service';
+import { CategoriasService } from '../../services/categorias.service';
+
 
 @Component({
   selector: 'app-categorias-form',
@@ -39,7 +40,7 @@ export class CategoriasFormComponent implements OnInit {
     this.loading = true;
     this.categoriasService.buscarPorId(id).subscribe({
       next: (data) => {
-        this.categoriaForm.patchValue({id: data.id, description: data.description});
+        this.categoriaForm.patchValue({id: data.id, description: data.description });
         this.loading = false;
       },
       error: (err) => {
@@ -60,7 +61,6 @@ export class CategoriasFormComponent implements OnInit {
     }
 
     this.loading = true;
-
     if (this.categoriaId) {
       this.categoriasService.atualizar(this.categoriaId, this.categoriaForm.value).subscribe({
         next: () => {

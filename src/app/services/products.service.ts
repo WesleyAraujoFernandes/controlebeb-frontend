@@ -25,4 +25,7 @@ export class ProductsService {
   excluir(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+  buscarPorId(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.apiUrl}/${id}`);
+  }
 }

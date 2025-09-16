@@ -5,19 +5,21 @@
 <table class="table table-striped table-bordered">
   <thead class="table-dark">
     <tr>
-      <th class="text-center" style="width: 60px;">ID</th>
+      <th class="text-center" style="width: 60px; display: none;">ID</th>
       <th>Nome</th>
       <th style="width: 130px;">Preço</th>
       <th style="width: 60px;">Estoque</th>
+      <th style="width: 130px;">Estoque min.</th>
       <th class="text-center" style="width: 160px;">Ações</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let p of produtos">
-      <td class="text-center">{{ p.id }}</td>
+      <td class="text-center" style="display: none;">{{ p.id }}</td>
       <td>{{ p.name }}</td>
       <td>R$ {{ p.price | number:'1.2-2' }}</td>
       <td>{{ p.quantity }}</td>
+      <td>{{ p.minimumStock }}</td>
       <td class="text-center">
         <a [routerLink]="['/produtos/editar', p.id]" class="btn btn-sm btn-primary me-2">Editar</a>
         <button class="btn btn-sm btn-danger">Excluir</button>

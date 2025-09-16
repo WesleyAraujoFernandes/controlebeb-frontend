@@ -1,7 +1,7 @@
 <div class="container mt-4">
-  <h2>Cadastrar Produto</h2>
+  <h2>{{ produtoId ? "Editar Produto" : "Cadastrar Produto" }}</h2>
 
-  <form [formGroup]="form" (ngSubmit)="salvar()">
+  <form [formGroup]="produtoForm" (ngSubmit)="salvar()">
     <div class="mb-3">
       <label for="name" class="form-label">Nome</label>
       <input
@@ -10,7 +10,8 @@
         formControlName="name"
         class="form-control"
         [ngClass]="{
-          'is-invalid': form.get('name')?.invalid && form.get('name')?.touched
+          'is-invalid':
+            produtoForm.get('name')?.invalid && produtoForm.get('name')?.touched
         }"
       />
       <div class="invalid-feedback">Nome é obrigatório</div>
@@ -25,7 +26,8 @@
         class="form-control"
         [ngClass]="{
           'is-invalid':
-            form.get('description')?.invalid && form.get('description')?.touched
+            produtoForm.get('description')?.invalid &&
+            produtoForm.get('description')?.touched
         }"
       />
       <div class="invalid-feedback">Descrição é obrigatória</div>
@@ -42,7 +44,8 @@
           class="form-control"
           [ngClass]="{
             'is-invalid':
-              form.get('price')?.invalid && form.get('price')?.touched
+              produtoForm.get('price')?.invalid &&
+              produtoForm.get('price')?.touched
           }"
         />
         <div class="invalid-feedback">Informe um preço válido</div>
@@ -57,7 +60,8 @@
           class="form-control"
           [ngClass]="{
             'is-invalid':
-              form.get('quantity')?.invalid && form.get('quantity')?.touched
+              produtoForm.get('quantity')?.invalid &&
+              produtoForm.get('quantity')?.touched
           }"
         />
         <div class="invalid-feedback">Informe uma quantidade maior que 0</div>
@@ -72,8 +76,8 @@
           class="form-control"
           [ngClass]="{
             'is-invalid':
-              form.get('minimumStock')?.invalid &&
-              form.get('minimumStock')?.touched
+              produtoForm.get('minimumStock')?.invalid &&
+              produtoForm.get('minimumStock')?.touched
           }"
         />
         <div class="invalid-feedback">Informe um estoque mínimo válido</div>
@@ -88,7 +92,8 @@
         class="form-select"
         [ngClass]="{
           'is-invalid':
-            form.get('categoryId')?.invalid && form.get('categoryId')?.touched
+            produtoForm.get('categoryId')?.invalid &&
+            produtoForm.get('categoryId')?.touched
         }"
       >
         <option value="">Escolha uma categoria</option>
@@ -111,7 +116,7 @@
       <button
         type="submit"
         class="btn btn-primary"
-        [disabled]="form.invalid || loading"
+        [disabled]="produtoForm.invalid || loading"
       >
         <span
           *ngIf="loading"
