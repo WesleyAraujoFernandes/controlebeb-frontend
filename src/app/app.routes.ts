@@ -27,7 +27,7 @@ export const routes: Routes = [
   // Vendas
   { path: 'vendas/cadastrar', component: VendaFormComponent },
   { path: 'vendas/editar/:id', component: VendaFormComponent },
-  { path: 'vendas', component: VendasListComponent },
+  { path: 'vendas', component: VendaFormComponent },
 
   // Default
   { path: '', redirectTo: 'produtos', pathMatch: 'full' },

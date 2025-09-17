@@ -5,14 +5,14 @@ import { ProductsService } from '../../services/products.service';
 import { SaleService } from '../../services/sale.service';
 import { SaleDTO } from '../../models/sale-dto';
 import { FormsModule } from '@angular/forms';
-import { DecimalPipe, NgFor } from '@angular/common';
+import { CommonModule, DecimalPipe, NgFor } from '@angular/common';
 import { Customer } from '../../models/customer';
 import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-venda-form',
   standalone: true,
-  imports: [FormsModule, NgFor, DecimalPipe],
+  imports: [FormsModule, NgFor, DecimalPipe, CommonModule],
   templateUrl: './venda-form.component.html',
   styleUrl: './venda-form.component.scss',
 })
@@ -43,10 +43,10 @@ export class VendaFormComponent implements OnInit {
   adicionarItem(): void {
     if (!this.selectedProductId || this.quantity <= 0) return;
 
-    const product = this.products.find((p) => p.id === this.selectedProductId);
+    const product = this.products.find((p) => p.id == this.selectedProductId);
     if (!product) return;
 
-    const existing = this.saleItems.find((i) => i.productId === product.id);
+    const existing = this.saleItems.find((i) => i.productId == product.id);
 
     if (existing) {
       existing.quantity += this.quantity;
@@ -57,6 +57,7 @@ export class VendaFormComponent implements OnInit {
         quantity: this.quantity,
         price: product.price,
         subtotal: product.price * this.quantity,
+        description: product.description
       });
     }
 
