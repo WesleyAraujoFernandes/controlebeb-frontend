@@ -8,7 +8,7 @@
         <th>Nome</th>
         <th>Email</th>
         <th>Telefone</th>
-        <th>Ações</th>
+        <th class="text-center" style="width: 15%;">Ações</th>
       </tr>
     </thead>
     <tbody>
@@ -16,8 +16,8 @@
         <td>{{ c.name }}</td>
         <td>{{ c.email }}</td>
         <td>{{ c.phone }}</td>
-        <td>
-          <button class="btn btn-sm btn-warning me-2" [routerLink]="['/clientes/editar', c.id]">Editar</button>
+        <td class="text-center">
+          <button class="btn btn-sm btn-primary me-2" [routerLink]="['/clientes/editar', c.id]">Editar</button>
           <button class="btn btn-sm btn-danger" (click)="excluir(c.id!)">Excluir</button>
         </td>
       </tr>
